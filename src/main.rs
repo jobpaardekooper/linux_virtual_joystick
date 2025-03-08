@@ -17,11 +17,12 @@ fn main() -> anyhow::Result<()> {
 struct UI {
     axes: Box<[controller::AnalogAxis]>,
     button: Box<[controller::Button]>,
+    move_axes: bool,
 }
 
 impl UI {
     pub fn new(axes: Box<[controller::AnalogAxis]>, button: Box<[controller::Button]>) -> Self {
-        Self { axes, button }
+        Self { axes, button, move_axes: false }
     }
 }
 
@@ -37,7 +38,21 @@ impl eframe::App for UI {
                 let name = button.name();
                 ui.add(egui::Checkbox::new(&mut button.new_value, name));
             }
+
+            if ui.button("Move all axes").clicked() {
+                self.move_axes = true;
+            }
         });
+
+        if self.move_axes {
+            for axis in self.axes.iter_mut() {
+                let inital_value = axis.new_value;
+                axis.new_value = 20;
+                axis.new_value();
+                axis.new_value = inital_value;
+            }
+            self.move_axes = false;
+        }
 
         for axis in self.axes.iter_mut() {
             axis.new_value();

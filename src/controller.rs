@@ -7,29 +7,15 @@ use evdev::{
     AbsInfo, AbsoluteAxisType, AttributeSet, EventType, InputEvent, Key, UinputAbsSetup,
 };
 
-const SLIDER_AXES: [(AbsoluteAxisType, &str); 6] = [
-    (AbsoluteAxisType::ABS_X, "Left X"),
-    (AbsoluteAxisType::ABS_Y, "Left Y"),
-    (AbsoluteAxisType::ABS_RX, "Right X"),
-    (AbsoluteAxisType::ABS_RY, "Right Y"),
+const SLIDER_AXES: [(AbsoluteAxisType, &str); 4] = [
+    (AbsoluteAxisType::ABS_X, "Roll (Left X)"),
+    (AbsoluteAxisType::ABS_Y, "Pitch (Left Y)"),
+    (AbsoluteAxisType::ABS_RZ, "Yaw (Right Z)"),
     (AbsoluteAxisType::ABS_THROTTLE, "Throttle"),
-    (AbsoluteAxisType::ABS_BRAKE, "Break"),
 ];
 
-const BUTTONS: [(Key, &str); 13] = [
-    (Key::BTN_SOUTH, " A (South)"),
-    (Key::BTN_EAST, "B (East)"),
-    (Key::BTN_WEST, "Y (West)"),
-    (Key::BTN_NORTH, "X North"),
-    (Key::BTN_TL, "LT"),
-    (Key::BTN_TR, "RT"),
-    (Key::BTN_TL2, "LB"),
-    (Key::BTN_TR2, "RB"),
-    (Key::BTN_SELECT, "Select / View"),
-    (Key::BTN_START, "Menu / Start"),
-    (Key::BTN_THUMBL, "Left Thumbstick"),
-    (Key::BTN_THUMBR, "Right Thumbstick"),
-    (Key::BTN_MODE, "Mode"),
+const BUTTONS: [(Key, &str); 1] = [
+    (Key::BTN_TRIGGER, "Panic"),
 ];
 
 pub type AnalogAxis = Control<i8>;
